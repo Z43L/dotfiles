@@ -1,3 +1,5 @@
+
+let mapleader = " "
 " Instala vim-plug automáticamente si no está ya instalado
 let plug_path = stdpath('data') . '/site/autoload/plug.vim'
 if empty(glob(plug_path))
@@ -17,6 +19,16 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " Resaltado avanzad
 Plug 'nvim-lualine/lualine.nvim'                  " Barra de estado
 Plug 'folke/tokyonight.nvim'                      " Tema Tokyonight
 Plug 'akinsho/bufferline.nvim'                    " Bufferline para cambiar entre archivos
+Plug 'numToStr/Comment.nvim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'kylechui/nvim-surround'
+Plug 'phaazon/hop.nvim'
+Plug 'nvim-neorg/neorg'				  " Tomar notas Markdown y utilidades :Neorg
+Plug 'folke/trouble.nvim'			" errores de codigo :TroubleToggle
+Plug 'glepnir/lspsaga.nvim'			" documentacion errores y acciones de codigo uso ver errores :Lspsaga show_line_diagnostics Ir a la definicion :Lspsaga lsp_finder
+Plug 'folke/which-key.nvim'			" USO En modo normal, presiona <leader> y espera un momento para que aparezca el menú de opciones.
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install' }  " USO :MarkdownPreview
+
 
 " Plugins para desarrollo en C/C++
 Plug 'neovim/nvim-lspconfig'                      " Configuración de LSP
@@ -163,6 +175,12 @@ cmp.setup({
 })
 EOF
 
+" plugin comentarios
+lua << EOF
+require('Comment').setup()
+EOF
+
+
 " Configuración de DAP (Depuración)
 lua << EOF
 local dap = require('dap')
@@ -183,6 +201,61 @@ EOF
 lua << EOF
 require('gitsigns').setup()
 EOF
+
+
+
+" configuracion del debuger cppdbg recuerda instalarlo
+
+lua << EOF
+local dap = require('dap')
+dap.adapters.cppdbg = {
+    id = 'cppdbg',
+    type = 'executable',
+    command = '/ruta/al/directorio/cpptools/extension/debugAdapters/bin/OpenDebugAD7',
+}
+
+dap.configurations.cpp = {
+    {
+        name = "Launch",
+        type = "cppdbg",
+        request = "launch",
+        program = function()
+            -- Busca automáticamente un archivo que termine en .dbg en el directorio actual
+            local cwd = vim.fn.getcwd()
+            local dbg_files = vim.fn.glob(cwd .. '/*.dbg', false, true)
+            if #dbg_files > 0 then
+                return dbg_files[1]  -- Usa el primer archivo .dbg encontrado
+            else
+                -- Si no hay archivos .dbg, solicita al usuario que introduzca la ruta
+                return vim.fn.input('Path to executable: ', cwd .. '/', 'file')
+            end
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = true,
+        setupCommands = {
+            {
+                text = '-enable-pretty-printing',
+                description = 'enable pretty printing',
+                ignoreFailures = false
+            },
+        },
+    },
+}
+
+-- configuracion para archivos .c tanbien
+dap.configurations.c = dap.configurations.cpp
+EOF
+
+
+
+" plugin hop 
+" Saltar a cualquier palabra: :HopWord
+" Saltar a cualquier línea: :HopLine
+
+lua << EOF
+require('hop').setup()
+EOF
+
 
 " Mapeos de Teclas
 nnoremap <leader>w :w<CR>         " Guardar
