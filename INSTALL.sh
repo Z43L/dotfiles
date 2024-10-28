@@ -56,6 +56,7 @@ cp -r ~/dotfiles_temp/.config/* ~/.config/
 
 # Copiar el archivo .zshrc a la carpeta de usuario
 cp ~/dotfiles_temp/.zshrc ~/
+cp ~/dotfiles_temp/Images ~/
 
 # Limpiar archivos temporales
 rm -rf ~/dotfiles_temp
