@@ -64,6 +64,8 @@ alias cat='bat'
 alias cl='clear'
 alias cc='source ~/.zshrc'
 alias tn='mdcat ~/.config/nvim/cheatsheet.md'
+alias tn='mdcat ~/.config/nvim/hypercheat.md'
+
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -112,7 +114,19 @@ function fzf-lovely(){
 function rmk(){
 	scrub -p dod $1
 	shred -zun 10 -v $1
-}
+}Configuración Esencial para Hyprland
+Funcionalidad	Comando/Atajo
+Terminal predeterminado	Super + Enter para abrir Kitty
+Bloqueo de pantalla	Super + L para bloquear la pantalla (swaylock)
+Explorador de archivos	Super + E para abrir Thunar
+Buscar aplicación	Super + D para abrir Rofi
+Cerrar ventana	Super + Q para cerrar la ventana actual
+Cambiar a modo flotante	Super + W para alternar entre modos flotante y en mosaico
+Navegar entre escritorios	Super + 1...9 para cambiar de escritorio
+Navegar entre ventanas	Super + Tab para cambiar a la siguiente ventana
+Menú de cierre de sesión	Super + Backspace para abrir el menú de logout
+Alternar barra de estado	Ctrl + Esc para mostrar/ocultar Waybar
+
 
 # Finalize Powerlevel10k instant prompt. Should stay at the bottom of ~/.zshrc.
 (( ! ${+functions[p10k-instant-prompt-finalize]} )) || p10k-instant-prompt-finalize
