@@ -7,11 +7,21 @@
     "margin-bottom": -10,
     "margin-left": 0,
     "margin-right": 0,
-    "modules-left": ["custom/launcher", "battery","memory","cpu", "disk", "custom/archivos", "custom/playerctl", "custom/playerlabel"],
+    "modules-left": ["custom/launcher", "battery","memory","cpu", "disk", "custom/archivos"],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["tray", "custom/randwall", "network", "pulseaudio", "clock"],
+    "modules-right": ["custom/playerlabel","custom/playerctl","network", "pulseaudio", "clock"],
+
     // Modules configuration
-  "clock": {
+	
+    "custom/image1": {
+	    "format": "<span foreground='#FFFFFF' background='#2e2e2e' font='14' rise='-1000'>📷</span>",
+	    "on-click": "bash -c 'feh -x ~/.config/nvim/nvimcheat.png && sleep 5 && pkill -f feh'"
+    },
+    "custom/image2": {
+	    "format": "<span foreground='#FFFFFF' background='#2e2e2e' font='14' rise='-1000'>📷</span>",
+	    "on-click": "bash -c 'feh -x ~/.config/nvim/hypercheat.png && sleep 5 && pkill -f feh'"
+    },
+    "clock": {
     "format": "<span foreground='#6D8895' font='14.5' rise='-1000'> </span>{:%H:%M}",
     "format-alt": "<span foreground='#6D8895' font='14.5' rise='-1000'> </span>{:%A %B de %Y}",
     "tooltip-format": "<tt>{calendar}</tt>",
@@ -53,64 +63,57 @@
 //			"5": "五",
 			"urgent": "",
 			"active": "",
-			"default": "",
+			"default": ""
+		},
     "sort-by-number": true
     },
-    },
-
     "custom/playerctl": {
-      "format": "{icon}",
-      "return-type": "json",
-      "max-length": 36,
-      "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
-      "on-click": "playerctl play-pause",
-      "format-icons": {
-        "Playing": "<span foreground='#fff' font='14' rise='-1000'>󰏥</span>",
-        "Paused": "<span foreground='#928374' font='14' rise='-1000'>󰐌</span>"
-      },
+	    "format": "<span foreground='#FFFFFF'  font='14' rise='-1000'>󰏥</span>",
+	    "return-type": "json",
+	    "max-length": 36,
+	    "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+	    "on-click": "playerctl play-pause",
+	    "format-icons": {
+		    "Playing": "<span foreground='#FFFFFF'  font='14' rise='-1000' >󰏥</span>",
+		    "Paused": "<span foreground='#928374'  font='14' rise='-1000' >󰐌</span>"
+	    }
     },
-
     "custom/playerlabel": {
-      "format": "<span>{}</span>",
-      "return-type": "json",
-      "max-length": 36,
-      "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
-      "on-click-middle": "playerctl play-pause",
-      "on-click": "playerctl previous",
-      "on-click-right": "playerctl next",
-      "format-icons": {
-        "Playing": "<span foreground='#fff' font='14' rise='-1000'>󰏥</span>",
-        "Paused": "<span foreground='#928374' font='14' rise='-1000'>󰐌</span>"
-      },
+	    "format": "<span foreground='#FFFFFF'  font='14' rise='-1000' >{}</span>",
+	    "return-type": "json",
+	    "max-length": 36,
+	    "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+	    "on-click-middle": "playerctl play-pause",
+	    "on-click": "playerctl previous",
+	    "on-click-right": "playerctl next",
     },
-
     "battery": {
       "states": {
           "good": 95,
           "warning": 30,
           "critical": 15
       },
-      "format": "<span foreground='#FFFFFF' background='#000000' font='14' rise='-1000'> {capacity}%</span>",
-      "format-charging": "<span foreground='#FFFFFF' background='#000000' font='14' rise='-1000'>{capacity}% </span>",
-      "format-plugged": "<span foreground='#FFFFFF' background='#000000' font='14' rise='-1000'>{capacity}% </span>"
+      "format": "<span foreground='#FFFFFF'  font='14' rise='-1000'>   {capacity}%</span>",
+      "format-charging": "<span foreground='#FFFFFF'  font='14' rise='-1000'>{capacity}% </span>",
+      "format-plugged": "<span foreground='#FFFFFF'  font='14' rise='-1000'>{capacity}% </span>"
     },
 
     "memory": {
-        "format": "<span foreground='#FFFFFF' background='#000000' font='14' rise='-1000'>󰍛 {}%</span>",
-        "format-alt": "<span foreground='#FFFFFF' background='#000000' font='14' rise='-1000'>󰍛 {used}/{total} GiB</span>",
+        "format": "<span foreground='#FFFFFF' font='14' rise='-1000'>󰍛  {}%</span>",
+        "format-alt": "<span foreground='#FFFFFF' font='14' rise='-1000'>󰍛 {used}/{total} GiB</span>",
         "interval": 5
     },
 
     "cpu": {
-        "format": "<span foreground='#FFFFFF' background='#000000' font='14' rise='-1000'>󰻠 {usage}%</span>",
-        "format-alt": "<span foreground='#FFFFFF' background='#000000' font='14' rise='-1000'>󰻠 {avg_frequency} GHz</span>",
+        "format": "<span foreground='#FFFFFF'  font='14' rise='-1000'>󰻠 {usage}%</span>",
+        "format-alt": "<span foreground='#FFFFFF'  font='14' rise='-1000'>󰻠 {avg_frequency} GHz</span>",
         "interval": 5
     },
 
 
     "disk": {
-      "format": "<span foreground='#FFFFFF' background='#000000' font='14' rise='-1000'>󰋊 {}%</span>",
-      "format-alt": "<span foreground='#FFFFFF' background='#000000' font='14' rise='-1000'>󰋊 {used}/{total} GiB</span>",
+      "format": "<span foreground='#FFFFFF' font='14' rise='-1000'>󰋊 {}%</span>",
+      "format-alt": "<span foreground='#FFFFFF' font='14' rise='-1000'>󰋊 {used}/{total} GiB</span>",
       "interval": 5,
       "path": "/mnt/Datos"
     },
