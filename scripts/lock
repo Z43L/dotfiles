@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Mata cualquier instancia previa de xautolock para evitar conflictos
+pkill xautolock
+
+# Inicia swaylock al instante para bloquear la pantalla
+swaylock -i ~/Images/wallpaper.png --effect-blur 10x3 --indicator --clock &
+
+# Configura xautolock para cerrar sesión tras 42 minutos
+xautolock -time 42 -killer "swaymsg exit"
+
